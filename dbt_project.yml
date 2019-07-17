@@ -17,8 +17,10 @@ on-run-start:
   - "{{ meta.create_meta_schema() }}"
   - "{{ meta.create_logging_table() }}"
   - "{{ meta.log_run_start_event() }}"
+  - "{{ meta.create_models_table() }}"
 on-run-end:
   - "{{ meta.log_run_end_event() }}"
+  - "{{ meta.log_models() }}"
 
 
 models:
