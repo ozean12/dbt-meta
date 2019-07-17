@@ -1,8 +1,8 @@
-name: 'logging'
+name: 'meta'
 version: '1.0'
 
 source-paths: ["models"]
-analysis-paths: ["analysis"] 
+analysis-paths: ["analysis"]
 test-paths: ["tests"]
 data-paths: ["data"]
 macro-paths: ["macros"]
