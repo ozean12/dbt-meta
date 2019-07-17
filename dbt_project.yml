@@ -27,4 +27,4 @@ on-run-end:
 
 models:
   meta:
-    schema: meta
+    schema: dbt_meta
