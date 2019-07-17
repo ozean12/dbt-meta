@@ -16,7 +16,7 @@ renamed as (
     (
       select
           *,
-          ROW_NUMBER() OVER( PARTITION BY created_at ORDER BY created_at DESC ) as rn
+          ROW_NUMBER() OVER( PARTITION BY id ORDER BY created_at DESC ) as rn
       from meta
     ) AS latest_record
     where rn = 1
