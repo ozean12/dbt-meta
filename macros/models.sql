@@ -1,4 +1,3 @@
-
 {# define table name to store model information #}
 {% macro get_models_relation() %}
   {%- set models_table =
@@ -62,7 +61,6 @@
     {% set nodes = graph.nodes %}
     {% set model_values = [] %}
 
-    {# Collect all tests compile values to insert later #}
     {% for nodekey in nodes.keys() %}
         {% if nodes[nodekey]['resource_type'] == 'model' %}
             {% set value = meta.create_model_record(nodekey, nodes[nodekey]['schema'], nodes[nodekey]['name']) %}
