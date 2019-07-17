@@ -18,10 +18,12 @@ on-run-start:
   - "{{ meta.create_logging_table() }}"
   - "{{ meta.log_run_start_event() }}"
   - "{{ meta.create_models_table() }}"
+  - "{{ meta.create_tests_table() }}"
+
 on-run-end:
   - "{{ meta.log_run_end_event() }}"
   - "{{ meta.log_models() }}"
-
+  - "{{ meta.log_tests() }}"
 
 models:
   meta:
