@@ -21,7 +21,8 @@
         event_timestamp,
         event_schema,
         event_model,
-        invocation_id
+        invocation_id,
+        username
         )
 
     values (
@@ -29,7 +30,8 @@
         {{dbt_utils.current_timestamp_in_utc()}},
         {% if variable != None %}'{{ schema }}'{% else %}null::varchar(512){% endif %},
         {% if variable != None %}'{{ relation }}'{% else %}null::varchar(512){% endif %},
-        '{{ invocation_id }}'
+        '{{ invocation_id }}',
+        CURRENT_USER
       )
 
 {% endmacro %}
@@ -43,7 +45,8 @@
        event_timestamp  {{dbt_utils.type_timestamp()}},
        event_schema     varchar(512),
        event_model      varchar(512),
-       invocation_id    varchar(512)
+       invocation_id    varchar(512),
+       username    varchar(512)
     )
 
 {% endmacro %}

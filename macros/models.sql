@@ -18,22 +18,23 @@
         id,
         schema,
         name,
+        invocation_id,
         created_at
         )
 
     values {{ values }};
-    commit;
 
 {% endmacro %}
 
 {# format a single record for insertion #}
-{% macro create_model_record(id, schema, name) %}
+{% macro create_model_record(id, schema, name, insert_timestamp) %}
 
       (
       {% if variable != None %}'{{ id }}'{% else %}null::varchar(1024){% endif %},
       {% if variable != None %}'{{ schema }}'{% else %}null::varchar(1024){% endif %},
       {% if variable != None %}'{{ name }}'{% else %}null::varchar(1024){% endif %},
-      {{dbt_utils.current_timestamp_in_utc()}}
+      '{{ invocation_id }}',
+      {% if variable != None %}'{{ insert_timestamp }}'{% else %}'{{dbt_utils.current_timestamp_in_utc()}}'{% endif %}
       )
 
 {% endmacro %}
@@ -43,31 +44,11 @@
 
     create table if not exists {{ meta.get_models_relation() }}
     (
-       id         varchar(1024),
-       schema       varchar(1024),
-       name       varchar(1024),
+       id             varchar(1024),
+       schema         varchar(1024),
+       name           varchar(1024),
+       invocation_id  varchar(512),
        created_at  {{dbt_utils.type_timestamp()}}
     ); commit;
-
-{% endmacro %}
-
-{#
-  iterate through node graph to
-    - filter for models
-    - compile insertion values
-    - insert to models table
-#}
-{% macro log_models() %}
-    {% set nodes = graph.nodes %}
-    {% set model_values = [] %}
-
-    {% for nodekey in nodes.keys() %}
-        {% if nodes[nodekey]['resource_type'] == 'model' %}
-            {% set value = meta.create_model_record(nodekey, nodes[nodekey]['schema'], nodes[nodekey]['name']) %}
-            {% do model_values.append(value) %}
-        {% endif %}
-    {% endfor %}
-
-    {{ meta.insert_models(','.join(model_values)) }}
 
 {% endmacro %}

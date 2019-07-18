@@ -16,7 +16,6 @@
     {{ return(meta_schema) }}
 {% endmacro %}
 
-
 {% macro create_meta_schema() %}
     create schema if not exists {{ meta.get_meta_schema() }}
 {% endmacro %}
