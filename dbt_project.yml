@@ -22,7 +22,6 @@ on-run-start:
 
 on-run-end:
   - "{{ meta.log_run_end_event() }}"
-  - "{{ meta.log_test_coverage() }}"
 
 models:
   meta:
