@@ -53,33 +53,25 @@
 
 
 {% macro log_run_start_event() %}
-  {%- if target.user == 'dbt_user' -%}
     {{meta.log_event('run started')}}
-  {%- endif -%}
 {% endmacro %}
 
 
 {% macro log_run_end_event() %}
-  {%- if target.user == 'dbt_user' -%}
     {{meta.log_event('run completed')}}; commit;
-  {%- endif -%}
 {% endmacro %}
 
 
 {% macro log_model_start_event() %}
-  {%- if target.user == 'dbt_user' -%}
   {{meta.log_event(
       'model deployment started', this.schema, this.name
       )}}
-  {%- endif -%}
 
 {% endmacro %}
 
 
 {% macro log_model_end_event() %}
-  {%- if target.user == 'dbt_user' -%}
     {{meta.log_event(
         'model deployment completed', this.schema, this.name
         )}}
-  {%- endif -%}
 {% endmacro %}
