@@ -18,7 +18,6 @@ on-run-start:
 
 
 on-run-end:
-  log_run_start
   - "{{ meta.log_run_end() }}"
 
 models:
