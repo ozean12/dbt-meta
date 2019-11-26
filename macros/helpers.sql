@@ -5,8 +5,6 @@
 
       -- Create tables if not already existing
       {{ meta.create_logging_table() }}
-      {{ meta.create_models_table() }}
-      {{ meta.create_tests_table() }}
 
       -- Log start of execution
       {{ meta.log_run_start_event() }}
