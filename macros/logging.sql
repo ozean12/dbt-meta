@@ -47,7 +47,7 @@
        event_model      varchar(512),
        invocation_id    varchar(512),
        username    varchar(512)
-    )
+    );
 
 {% endmacro %}
 
